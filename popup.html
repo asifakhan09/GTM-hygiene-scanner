@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --bg: #0f1117;
+    --panel: #161924;
+    --line: #232838;
+    --text: #e6e9f0;
+    --muted: #8b93a7;
+    --accent: #5eead4;
+    --warn: #fbbf24;
+    --crit: #f87171;
+    --ok: #34d399;
+  }
+  * { box-sizing: border-box; }
+  body {
+    width: 380px; margin: 0; background: var(--bg); color: var(--text);
+    font: 13px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 14px; border-bottom: 1px solid var(--line);
+  }
+  header .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+  header h1 { font-size: 13px; font-weight: 650; margin: 0; letter-spacing: .2px; }
+  header .tag { margin-left: auto; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; }
+  .bar { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  button.scan {
+    width: 100%; padding: 10px; border: 0; border-radius: 9px; cursor: pointer;
+    background: var(--accent); color: #04201b; font-weight: 700; font-size: 13px;
+    transition: transform .05s ease, filter .15s ease;
+  }
+  button.scan:hover { filter: brightness(1.08); }
+  button.scan:active { transform: translateY(1px); }
+  button.scan:disabled { opacity: .5; cursor: default; }
+  .summary { display: flex; gap: 8px; padding: 10px 14px 0; }
+  .chip {
+    flex: 1; text-align: center; padding: 8px 4px; border-radius: 8px;
+    background: var(--panel); border: 1px solid var(--line);
+  }
+  .chip .n { font-size: 18px; font-weight: 750; line-height: 1; }
+  .chip .l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-top: 4px; }
+  .chip.crit .n { color: var(--crit); }
+  .chip.warn .n { color: var(--warn); }
+  .chip.ok .n { color: var(--ok); }
+  #list { padding: 10px 14px 14px; max-height: 360px; overflow-y: auto; }
+  .issue {
+    border: 1px solid var(--line); background: var(--panel);
+    border-radius: 9px; padding: 9px 11px; margin-bottom: 8px;
+  }
+  .issue .top { display: flex; align-items: center; gap: 7px; }
+  .sev { font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 999px; text-transform: uppercase; letter-spacing: .5px; }
+  .sev.crit { background: rgba(248,113,113,.15); color: var(--crit); }
+  .sev.warn { background: rgba(251,191,36,.15); color: var(--warn); }
+  .issue .field { font-weight: 650; font-size: 12px; }
+  .issue .msg { color: var(--muted); margin-top: 4px; font-size: 12px; }
+  .issue .val { color: var(--text); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11px; background: #0c0e14; padding: 1px 5px; border-radius: 4px; }
+  .empty { text-align: center; color: var(--muted); padding: 28px 14px; }
+  .empty .big { font-size: 28px; }
+  footer { padding: 9px 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 10.5px; text-align: center; }
+</style>
+</head>
+<body>
+  <header>
+    <span class="dot"></span>
+    <h1>Data Hygiene Scanner</h1>
+    <span class="tag">local · no api</span>
+  </header>
+  <div class="bar">
+    <button class="scan" id="scan">Scan this page</button>
+  </div>
+  <div class="summary" id="summary" style="display:none">
+    <div class="chip crit"><div class="n" id="cCrit">0</div><div class="l">Critical</div></div>
+    <div class="chip warn"><div class="n" id="cWarn">0</div><div class="l">Warnings</div></div>
+    <div class="chip ok"><div class="n" id="cScanned">0</div><div class="l">Fields</div></div>
+  </div>
+  <div id="list"></div>
+  <footer>Runs entirely in your browser. Nothing leaves this page.</footer>
+  <script src="popup.js"></script>
+</body>
+</html>

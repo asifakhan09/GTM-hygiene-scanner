@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "GTM Data Hygiene Scanner",
+  "version": "1.0.0",
+  "description": "Scans the current page (HubSpot, Salesforce, or any web form) and flags data-hygiene issues: missing fields, bad formatting, no next step. 100% local, no API.",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Scan page for data hygiene issues"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
